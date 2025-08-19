@@ -22,12 +22,33 @@
       font-size: 3.5rem;
       font-weight: bold;
       letter-spacing: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-progress {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      color: #eee;
+      background: none;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn-progress:hover {
+      background: #eee;
+      color: #111;
     }
   </style>
 </head>
 <body>
   <h1>Décompte jusqu'à la rentrée :</h1>
   <div class="counter" id="counter">Chargement...</div>
+
+  <!-- 🔘 Bouton progression -->
+  <a href="https://moi34567.github.io/Decompte-rentr-e/progress.html" class="btn-progress">Calculer ma progression de lecture</a>
 
   <script>
     // 📅 Date de la rentrée à ajuster ici :
