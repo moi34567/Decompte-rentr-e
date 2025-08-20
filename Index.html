@@ -26,21 +26,24 @@
     }
 
     .btn-progress {
-      display: inline-block;
-      padding: 12px 24px;
-      font-size: 1.2rem;
-      color: #eee;
-      background: none;
-      border: 2px solid #eee;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
+    display: inline-block;
+    padding: 16px 32px; /* Plus grand */
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #111;
+    background: #4CAF50; /* Vert vif */
+    border: none;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Relief */
+  }
 
-    .btn-progress:hover {
-      background: #eee;
-      color: #111;
-    }
+  .btn-progress:hover {
+    background: #45a049; /* Vert un peu plus foncé */
+    transform: scale(1.05); /* Effet zoom */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.7);
+  }
   </style>
 </head>
 <body>
