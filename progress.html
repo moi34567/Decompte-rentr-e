@@ -123,10 +123,11 @@
     function calculate() {
       const totalPages = parseInt(select.value);
       const pagesRead = parseInt(document.getElementById("pagesRead").value);
-
+      const selectedOption = select.options[select.selectedIndex];
+      const selectedTitle = selectedOption.textContent;
       if (
-    selectedTitle.includes("Perceval ou le conte du graal") ||
-    selectedTitle.includes("Oliver twist")
+        selectedTitle.includes("Perceval ou le conte du graal") ||
+        selectedTitle.includes("Oliver twist")
   ) {
     alert("Nombre de pages inconnu");
     return;
