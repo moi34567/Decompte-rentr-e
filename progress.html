@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Progression de lecture</title>
+  <link rel="icon" href="data:,">
+  <style>
+    body {
+      background-color: #111; /* Fond sombre */
+      color: #eee; /* Texte clair */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 10%;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-size: 1.1rem;
+    }
+
+    select, input {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 2px solid #eee;
+      background: #111;
+      color: #eee;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      width: 220px;
+    }
+
+    button {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      color: #eee;
+      background: none;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #eee;
+      color: #111;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .progress-container {
+      margin: 20px auto;
+      width: 80%;
+      background: #333;
+      border-radius: 12px;
+      height: 25px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #4CAF50;
+      transition: width 0.4s;
+      text-align: center;
+      line-height: 25px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>📖 Suivi de lecture</h1>
+  <h2>⚠️ Le nombre de pages restantes et à lire par jours sont calculées a partir d'une estimation du nombre de pages totales du livre et pevent être inexact. En aucun cas le créateur de cet outils numérique peut en être tenu responsable.</h2>
+  <label for="bookSelect">Choisis un livre :</label>
+  <select id="bookSelect">
+    <option value="0">-- Sélectionne un livre --</option>
+  </select>
+
+  <label for="pagesRead">Nombre de pages lues :</label>
+  <input type="number" id="pagesRead" value="0" min="0">
+
+  <button onclick="calculate()">Calculer ma progression</button>
+
+  <div class="result" id="result"></div>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar">0%</div>
+  </div>
+
+  <script>
+    // Liste des livres (titre => nombre de pages)
+    const books = {
+      "Moi Malala": 265,
+      "La vie devant soi": 273,
+      "Perceval ou le conte du graal": 999,
+      "Oliver twist": 999,
+      "Le message": 200,
+    };
+
+    // Date de la rentrée
+    const rentrée = new Date("2025-09-02");
+
+    // Remplissage du select
+    const select = document.getElementById("bookSelect");
+    for (const [title, pages] of Object.entries(books)) {
+      const option = document.createElement("option");
+      option.value = pages;
+      option.textContent = `${title} (${pages} pages)`;
+      select.appendChild(option);
+    }
+
+    function calculate() {
+      const totalPages = parseInt(select.value);
+      const pagesRead = parseInt(document.getElementById("pagesRead").value);
+      const selectedOption = select.options[select.selectedIndex];
+      const selectedTitle = selectedOption.textContent;
+      if (
+        selectedTitle.includes("Perceval ou le conte du graal") ||
+        selectedTitle.includes("Oliver twist")
+  ) {
+    alert("Nombre de pages inconnu");
+    return;
+      }
+      if (isNaN(totalPages) || totalPages === 0) {
+        alert("Sélectionne un livre !");
+        return;
+      }
+
+      const pagesRemaining = Math.max(totalPages - pagesRead, 0);
+      const today = new Date();
+      const diffTime = rentrée - today;
+      const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const pagesPerDay = daysRemaining > 0 ? Math.ceil(pagesRemaining / daysRemaining) : pagesRemaining;
+
+      document.getElementById("result").innerHTML = `
+        🔖 Pages restantes : <b>${pagesRemaining}</b><br>
+        ⏳ Jours restants avant la rentrée: <b>${daysRemaining}</b><br>
+        ⚡ Pages à lire par jour : <b>${pagesPerDay}</b>
+      `;
+
+      const progress = Math.min((pagesRead / totalPages) * 100, 100);
+      const progressBar = document.getElementById("progressBar");
+      progressBar.style.width = progress + "%";
+      progressBar.textContent = Math.floor(progress) + "%";
+    }
+  </script>
+</body>
+</html>
