@@ -103,8 +103,8 @@
     const books = {
       "Moi Malala": 265,
       "La vie devant soi": 273,
-      "Perceval ou le conte du graal": 000,
-      "Oliver twist": 530,
+      "Perceval ou le conte du graal": 999,
+      "Oliver twist": 999,
       "Le message": 200,
     };
 
@@ -124,6 +124,13 @@
       const totalPages = parseInt(select.value);
       const pagesRead = parseInt(document.getElementById("pagesRead").value);
 
+      if (
+    selectedTitle.includes("Perceval ou le conte du graal") ||
+    selectedTitle.includes("Oliver twist")
+  ) {
+    alert("Nombre de pages inconnu");
+    return;
+      }
       if (isNaN(totalPages) || totalPages === 0) {
         alert("Sélectionne un livre !");
         return;
