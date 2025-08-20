@@ -2,51 +2,64 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Progression de lecture</title>
   <link rel="icon" href="data:,">
   <style>
     body {
-      background-color: #111; /* Fond sombre */
-      color: #eee; /* Texte clair */
+      background-color: #111;
+      color: #eee;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 10%;
+      padding: 20px;
+      margin: 0;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 2rem;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      line-height: 1.4;
+      margin: 0 auto 1.5rem;
+      max-width: 600px;
     }
 
     label {
       display: block;
-      margin: 15px 0 5px;
-      font-size: 1.1rem;
+      margin: 12px 0 6px;
+      font-size: 1rem;
     }
 
     select, input {
-      padding: 8px 12px;
+      padding: 10px 12px;
       border-radius: 8px;
       border: 2px solid #eee;
       background: #111;
       color: #eee;
       font-size: 1rem;
       margin-bottom: 15px;
-      width: 220px;
+      width: 100%;
+      max-width: 320px;
+      box-sizing: border-box;
     }
 
     button {
       display: inline-block;
-      padding: 12px 24px;
-      font-size: 1.2rem;
+      padding: 12px 20px;
+      font-size: 1rem;
       color: #eee;
       background: none;
       border: 2px solid #eee;
       border-radius: 8px;
-      text-decoration: none;
       cursor: pointer;
       transition: 0.2s;
       margin-top: 10px;
+      width: 100%;
+      max-width: 320px;
     }
 
     button:hover {
@@ -56,12 +69,14 @@
 
     .result {
       margin-top: 20px;
-      font-size: 1.2rem;
+      font-size: 1rem;
+      line-height: 1.5;
     }
 
     .progress-container {
       margin: 20px auto;
-      width: 80%;
+      width: 100%;
+      max-width: 500px;
       background: #333;
       border-radius: 12px;
       height: 25px;
@@ -76,12 +91,14 @@
       text-align: center;
       line-height: 25px;
       color: #fff;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <h1>📖 Suivi de lecture</h1>
   <h2>⚠️ Le nombre de pages restantes et à lire par jours sont calculées a partir d'une estimation du nombre de pages totales du livre et pevent être inexact. En aucun cas le créateur de cet outils numérique peut en être tenu responsable.</h2>
+  
   <label for="bookSelect">Choisis un livre :</label>
   <select id="bookSelect">
     <option value="0">-- Sélectionne un livre --</option>
@@ -99,7 +116,6 @@
   </div>
 
   <script>
-    // Liste des livres (titre => nombre de pages)
     const books = {
       "Moi Malala": 265,
       "La vie devant soi": 273,
@@ -108,10 +124,8 @@
       "Le message": 200,
     };
 
-    // Date de la rentrée
     const rentrée = new Date("2025-09-02");
 
-    // Remplissage du select
     const select = document.getElementById("bookSelect");
     for (const [title, pages] of Object.entries(books)) {
       const option = document.createElement("option");
@@ -128,9 +142,9 @@
       if (
         selectedTitle.includes("Perceval ou le conte du graal") ||
         selectedTitle.includes("Oliver twist")
-  ) {
-    alert("Nombre de pages inconnu");
-    return;
+      ) {
+        alert("Nombre de pages inconnu");
+        return;
       }
       if (isNaN(totalPages) || totalPages === 0) {
         alert("Sélectionne un livre !");
