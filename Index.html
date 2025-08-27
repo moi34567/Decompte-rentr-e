@@ -52,6 +52,9 @@
   <p id="info">
     À partir du 02/09/2025 ce site affichera un décompte jusqu'aux prochaines vacances de la zone C.
   </p>
+  <h2>
+    Bonne rentrée a tous !!! 🥳
+  </h2>
   <!--
   <a disabled href="https://moi34567.github.io/Decompte-rentr-e/progress.html" class="btn-progress">Calculer ma progression de lecture</a>
   -->
@@ -77,7 +80,7 @@
       // si on est déjà après la première date → démarrer directement au 2e compte à rebours
       if (now >= countdowns[0].date) {
         currentIndex = 1;
-        document.getElementById("info").style.display = "none"; // cacher le paragraphe directement
+        document.getElementById("info").style.display = "none";// cacher le paragraphe directement
         document.getElementById("label").textContent = countdowns[currentIndex].label;
       }
     })();
