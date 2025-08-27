@@ -49,7 +49,7 @@
 <body>
   <h1 id="label">Décompte jusqu'à la rentrée :</h1>
   <div class="counter" id="counter">Chargement...</div>
-  <p>
+  <p id="info">
     À partir du 02/09/2025 ce site affichera un décompte jusqu'aux prochaines vacances de la zone C.
   </p>
   <!--
@@ -71,16 +71,30 @@
     let currentIndex = 0;
     let intervalId;
 
+    // 🔽 Dès le départ, on regarde où on en est
+    (function initCountdown() {
+      const now = new Date();
+      // si on est déjà après la première date → démarrer directement au 2e compte à rebours
+      if (now >= countdowns[0].date) {
+        currentIndex = 1;
+        document.getElementById("info").style.display = "none"; // cacher le paragraphe directement
+        document.getElementById("label").textContent = countdowns[currentIndex].label;
+      }
+    })();
+
     function updateCountdown() {
       const now = new Date();
       const target = countdowns[currentIndex].date;
       const diff = target - now;
 
       if (diff <= 0) {
-        // Si le premier est fini → passe au suivant
+        // Si le compte actuel est fini → passer au suivant
         if (currentIndex < countdowns.length - 1) {
           currentIndex++;
           document.getElementById("label").textContent = countdowns[currentIndex].label;
+          if (currentIndex === 1) {
+            document.getElementById("info").style.display = "none";
+          }
         } else {
           document.getElementById("counter").textContent = "🎉 Événement atteint !";
           clearInterval(intervalId);
