@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Décompte Rentrée</title>
+  <link rel="icon" href="data:,">
+  <style>
+    body {
+      background-color: #111; /* Fond sombre */
+      color: #eee; /* Texte clair */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 10%;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .counter {
+      font-size: 3.5rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-progress {
+      display: inline-block;
+      padding: 16px 32px; /* Plus grand */
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #111;
+      background: #4CAF50; /* Vert vif */
+      border: none;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Relief */
+    }
+
+    .btn-progress:hover {
+      background: #45a049; /* Vert un peu plus foncé */
+      transform: scale(1.05); /* Effet zoom */
+      box-shadow: 0 6px 16px rgba(0,0,0,0.7);
+    }
+
+    .tenor-gif-embed {
+      max-width: 250px; /* pas trop grand */
+      margin: 20px auto;
+    }
+    #progress-bar-container {
+      width: 80%;
+      height: 30px;
+      background: #333;
+      border-radius: 15px;
+      margin: 20px auto 5px auto; /* petit espace en bas */
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4CAF50, #81C784);
+      border-radius: 15px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-dates {
+      width: 80%;
+      margin: 0 auto 15px auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="label">Décompte jusqu'à la rentrée :</h1>
+  <div class="counter" id="counter">Chargement...</div>
+  <div id="progress-bar-container">
+    <div id="progress-bar"></div>
+  </div>
+  <div class="progress-dates">
+    <span id="start-date"></span>
+    <span id="end-date"></span>
+  </div>
+
+  <p id="info">
+    À partir du 02/09/2025 ce site affichera un décompte jusqu'aux prochaines vacances de la zone C.
+  </p>
+  <h2>
+    Bonne rentrée à tous !!! 🥳
+  </h2>
+  <video autoplay loop muted playsinline width="600" style="display:block; margin:auto;">
+    <source src="gif.mp4" type="video/mp4">
+  </video>
+
+  <script>
+    // 🗓️ Définis ici les deux dates et leurs phrases
+    const countdowns = [
+      {
+        date: new Date("2025-09-02T08:00:00"),
+        label: "Décompte jusqu'à la rentrée :"
+      },
+      {
+        date: new Date("2025-10-17T17:30:00"),
+        label: "Décompte jusqu'aux prochaines vacances de la zone C :"
+      }
+    ];
+
+    let currentIndex = 0;
+    let intervalId;
+
+    // 🔽 Dès le départ, on regarde où on en est
+    (function initCountdown() {
+      const now = new Date();
+      if (now >= countdowns[0].date) {
+        currentIndex = 1;
+        document.getElementById("info").style.display = "none";
+        document.getElementById("label").textContent = countdowns[currentIndex].label;
+        // si on est déjà après la rentrée → cacher le GIF
+        document.getElementById("gif-container").style.display = "none";
+      }
+    })();
+
+    function updateCountdown() {
+      const now = new Date();
+      const target = countdowns[currentIndex].date;
+      const diff = target - now;
+
+      if (diff <= 0) {
+        if (currentIndex === 0) {
+          // On vient d'arriver à la rentrée → cacher le GIF après 30s
+          setTimeout(() => {
+            document.getElementById("gif-container").style.display = "none";
+          }, 30000);
+        }
+
+        if (currentIndex < countdowns.length - 1) {
+          currentIndex++;
+          document.getElementById("label").textContent = countdowns[currentIndex].label;
+          if (currentIndex === 1) {
+            document.getElementById("info").style.display = "none";
+          }
+        } else {
+          document.getElementById("counter").textContent = "🎉 Événement atteint !";
+          clearInterval(intervalId);
+          return;
+        }
+      }
+
+      const newDiff = countdowns[currentIndex].date - now;
+      if (newDiff <= 0) {
+        document.getElementById("counter").textContent = "🎉 Événement atteint !";
+        clearInterval(intervalId);
+        return;
+      }
+
+      const seconds = Math.floor(newDiff / 1000) % 60;
+      const minutes = Math.floor(newDiff / (1000 * 60)) % 60;
+      const hours = Math.floor(newDiff / (1000 * 60 * 60)) % 24;
+      const days = Math.floor(newDiff / (1000 * 60 * 60 * 24));
+
+      const formatted = `${days} j ${hours} h ${minutes} min ${seconds} s`;
+      document.getElementById("counter").textContent = formatted;
+      document.getElementById("label").textContent = countdowns[currentIndex].label;
+    }
+
+    intervalId = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Intervalle
+const startDate = new Date("2025-08-25T08:00:00");
+const endDate = new Date("2025-09-02T08:00:00");
+
+function updateProgressBar() {
+  const now = new Date();
+  const total = endDate - startDate;
+  const elapsed = now - startDate;
+
+  let percent = (elapsed / total) * 100;
+
+  // Si après le 2 septembre → on cache complètement la barre
+  if (now > endDate) {
+    document.getElementById("progress-bar-container").style.display = "none";
+    document.querySelector(".progress-dates").style.display = "none";
+    return;
+  }
+
+  if (percent < 0) percent = 0;
+  if (percent > 100) percent = 100;
+
+  document.getElementById("progress-bar").style.width = percent + "%";
+
+  // Affichage des dates (format JJ/MM/AAAA)
+  const formatDate = (date) =>
+    date.getDate().toString().padStart(2, "0") + "/" +
+    (date.getMonth() + 1).toString().padStart(2, "0") + "/" +
+    date.getFullYear();
+
+  document.getElementById("start-date").textContent = formatDate(startDate);
+  document.getElementById("end-date").textContent = formatDate(endDate);
+}
+
+setInterval(updateProgressBar, 1000);
+updateProgressBar();
+
+  </script>
+</body>
+</html>
