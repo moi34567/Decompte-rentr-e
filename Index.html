@@ -90,14 +90,11 @@
   </div>
 
  <!-- <p id="info">
-    À partir du 02/09/2025 ce site affichera un décompte jusqu'aux prochaines vacances de la zone C.
+    À partir du 17/10/2025 ce site affichera un décompte jusqu'à la prochaine rentrée.
   </p>
   <h2>
-    Bonne rentrée à tous !!! 🥳
+    Bonnes vacances à tous !!! 🥳
   </h2>
-  <video autoplay loop muted playsinline width="600" style="display:block; margin:auto;">
-    <source src="gif.mp4" type="video/mp4">
-  </video>
 -->
   <script>
     // 🗓️ Définis ici les deux dates et leurs phrases
@@ -107,8 +104,8 @@
         label: "Décompte jusqu'aux prochaines vacances de la zone C :"
       },
       {
-        date: new Date("2025-10-17T17:30:00"),
-        label: "Décompte jusqu'aux prochaines vacances de la zone C :"
+        date: new Date("2025-11-03T08:30:00"),
+        label: "Décompte jusqu'à la prochaine rentrée :"
       }
     ];
 
@@ -133,12 +130,6 @@
       const diff = target - now;
 
       if (diff <= 0) {
-        if (currentIndex === 0) {
-          // On vient d'arriver à la rentrée → cacher le GIF après 30s
-          setTimeout(() => {
-            document.getElementById("gif-container").style.display = "none";
-          }, 30000);
-        }
 
         if (currentIndex < countdowns.length - 1) {
           currentIndex++;
