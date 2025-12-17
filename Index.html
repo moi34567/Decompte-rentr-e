@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Décompte Rentrée</title>
   <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
       background-color: #111; /* Fond sombre */
@@ -89,22 +90,22 @@
     <span id="end-date"></span>
   </div>
 
- <!-- <p id="info">
+ <p id="info">
     À partir du 17/10/2025 ce site affichera un décompte jusqu'à la prochaine rentrée.
   </p>
   <h2>
     Bonnes vacances à tous !!! 🥳
   </h2>
--->
+  
   <script>
     // 🗓️ Définis ici les deux dates et leurs phrases
     const countdowns = [
       {
-        date: new Date("2025-10-17T17:30:00"),
+        date: new Date("2025-12-19T17:30:00"),
         label: "Décompte jusqu'aux prochaines vacances de la zone C :"
       },
       {
-        date: new Date("2025-11-03T08:30:00"),
+        date: new Date("2025-01-05T08:30:00"),
         label: "Décompte jusqu'à la prochaine rentrée :"
       }
     ];
@@ -165,8 +166,8 @@
     updateCountdown();
 
     // Intervalle
-const startDate = new Date("2025-09-02T08:00:00");
-const endDate = new Date("2025-10-17T17:30:00");
+const startDate = new Date("2025-12-12T08:00:00");
+const endDate = new Date("2025-12-19T17:30:00");
 
 function updateProgressBar() {
   const now = new Date();
